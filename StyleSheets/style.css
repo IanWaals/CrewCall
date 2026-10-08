@@ -1,0 +1,140 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0%;
+    background-image: url("../src/images/background.jpg");
+    background-color: rgba(255, 255, 255, 0.65);
+    background-blend-mode: lighten;
+}
+.jaro {
+  font-family: "Jaro", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.critical {
+    color: red;
+}
+
+header {
+    background-color: #3c00ff;
+    border-radius: 0px 0px 10px 10px;
+
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+header.index {
+    text-align: center;
+}
+header.regular {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+img.index {
+    width: 200px;
+}
+img.regular {
+    margin-left: 15px;
+    width: 120px;
+}
+
+header nav {
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 15px;
+}
+.navText {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+.navText:hover {
+    color: #D57F2F;
+    text-decoration: underline;
+}
+.navText.active {
+    color: #D57F2F;
+}
+
+img.profilePic {
+    width: 45px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+}
+img.profilePic.active {
+    border-color: #D57F2F;
+}
+
+main.index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    background-color: #3c00ff;
+    border-radius: 10px;
+
+    margin-top: 35vh;
+    padding: 15px 50px;
+}
+main.index h1 {
+    font-size: 40px;
+}main.index p {
+    font-size: 18px;
+}
+.orangeButton {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    background-color: #D57F2F;
+    border-radius: 5px;
+
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 175px;
+
+    border: none;
+    outline: none;
+}
+.orangeButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.inputSmall{
+    border-radius: 5px;
+
+    height: 35px;
+    width: 350px;
+    margin-bottom: 20px;
+
+    border: none;
+    outline: none;
+}
+.registerParent{
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+}
+.inputSmallest{
+    border-radius: 5px;
+
+    height: 35px;
+    width: 150px;
+    margin-bottom: 20px;
+
+    border: none;
+    outline: none;
+}
