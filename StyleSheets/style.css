@@ -88,6 +88,112 @@ main.index h1 {
 }main.index p {
     font-size: 18px;
 }
+
+main.typeMain {
+    margin-top: 10vh;
+}
+main.typeMain h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: blue;
+    font-size: 40px;
+
+    width: 50vw;
+}
+.accountTopParent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #3c00ff;
+    color: white;
+    padding: 20px;
+    width: 100%;
+}
+.accountTopRow {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.accountLeftChild {
+    display: flex;
+    gap: 15px;
+
+    width: 50%;
+}
+.accountRightChild {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    width: 50%;
+}
+.accountRightChild p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+.accountLabel {
+    color: #D57F2F;
+}
+.accountSmallBtn {
+    width: auto;
+    font-size: 18px;
+    padding: 5px 15px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+.accountBioForm {
+    width: 70%;
+    margin-top: 10px;
+}
+.accountBioForm label {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.accountBio {
+    width: 100%;
+    height: 110px;
+    resize: none;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    padding: 8px;
+    margin-bottom: 15px;
+    font-family: inherit;
+    font-size: 18px;
+}
+.accountWideBtn {
+    width: 100%;
+    cursor: pointer;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+.accountLogout {
+    width: 100px;
+    height: auto;
+    align-self: center;
+    margin: 15px 0 0 0;
+}
+.accountLeftChild img {
+    width: 130px;
+    border-radius: 100px;
+}
+.accountLeftChild p {
+    font-size: 28px;
+    margin-top: 5px;
+}
+.accountLeftChild .uploadBtn {
+    background-color: #D57F2F;
+    border-radius: 5px;
+    font-size: 24px;
+    padding: 5px 10px 5px 10px;
+}.accountLeftChild .uploadBtn:hover {
+    cursor: pointer;
+}
+
 .orangeButton {
     display: block;
     text-align: center;

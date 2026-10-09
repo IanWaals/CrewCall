@@ -22,6 +22,19 @@ function getUsers() {
     $users = $resource->fetch_all(MYSQLI_ASSOC);
     return $users;
 }
+function getSpecificUser() {
+    $conn = dbConnect();
+
+    $stmt = $conn->prepare("SELECT * from users WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $user = $result->fetch_assoc();
+
+    return $user;
+}
 
 function getProfilePicture() {
     // Get your MySQLi database connection
