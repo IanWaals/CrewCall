@@ -1,7 +1,7 @@
 <?php
 
 
-include "src/db.php";
+include_once "src/db.php";
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -52,13 +52,16 @@ if ($_GET['option'] == "login") {
         
         if (mysqli_stmt_execute($stmt)) {
             echo "Registration successful!";
-            header("location: homepage.php");
+            header("location: login.php?option=login");
         } else {
             echo "Error: " . mysqli_stmt_error($stmt);
         }
         
         mysqli_stmt_close($stmt);
     }
+} elseif ($_GET['option'] == "logout") {
+    $_SESSION['loggedIn'] = false;
+    header("location: index.php");
 }
 
 ?>

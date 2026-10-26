@@ -4,7 +4,7 @@ if(session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_N
     // session isn't started
     session_start();
 }
-include "src/functions.php";
+include_once "src/functions.php";
 
 if (!empty($_SESSION['loggedIn'])) {
     header("location: homepage.php");
