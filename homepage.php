@@ -24,6 +24,17 @@ function compileUserFriends(array $friendships, string $userId): array {
 $friendships = getFriendships();
 $userFriendships = compileUserFriends($friendships, $_SESSION['user_id']);
 
+// Friend modal: opened with homepage.php?modal=friend&user=<id>
+// Only friends of the logged in user can be shown.
+$modalUser = null;
+$modalUserId = null;
+if (($_GET['modal'] ?? '') === 'friend' && isset($_GET['user'])) {
+    $requestedId = (string) $_GET['user'];
+    if (in_array($requestedId, array_map('strval', $userFriendships), true)) {
+        $modalUserId = $requestedId;
+        $modalUser = getSpecificUser($modalUserId);
+    }
+}
 
 ?>
 
@@ -41,13 +52,47 @@ $userFriendships = compileUserFriends($friendships, $_SESSION['user_id']);
                     foreach ($userFriendships as $id) {
                         $user = getSpecificUser($id);
                     ?>
-                        <div class="friend">
-                            <img src="src/images/pfps/<?php echo getProfilePicture($id); ?>" alt="">
-                            <p><?php echo $user['UserName']; ?></p>
-                        </div>
+                        <a href="homepage.php?modal=friend&amp;user=<?php echo urlencode($id); ?>">
+                            <div class="friend">
+                                <img src="src/images/pfps/<?php echo getProfilePicture($id); ?>" alt="">
+                                <p><?php echo $user['UserName']; ?></p>
+                            </div>
+                        </a>
                     <?php } ?>
                 </div>
             </section>
         </main>
+
+        <?php if ($modalUser): ?>
+        <!-- Friend profile modal (opened via ?modal=friend&user=<id>, closes by linking back to homepage.php) -->
+        <div class="modalOverlay open">
+            <div class="modalBox friendModalBox jaro">
+                <a href="homepage.php" class="modalClose friendModalClose" aria-label="Close">&times;</a>
+                <div class="friendModalTop">
+                    <img src="src/images/pfps/<?php echo htmlspecialchars(getProfilePicture($modalUserId)); ?>" alt="">
+                    <div class="friendModalInfo">
+                        <h2><?php echo $modalUser['UserName']; ?></h2>
+                        <p class="friendStatus">Your friend</p>
+                    </div>
+                </div>
+                <p class="friendModalBio">
+                    <?php echo $modalUser['UserBio']; ?>
+                </p>
+                <h3>Attending events:</h3>
+                <!-- <div class="eventCard">
+                    <p class="eventTitle">Looking for 5 people for 3x3 basketall</p>
+                    <p class="eventLocation">
+                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                            <path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+                        </svg>
+                        You know where
+                    </p>
+                    <p>Sport: Basketball</p>
+                    <p>Category: Limited spaces</p>
+                    <a href="#" class="orangeButton eventMoreInfo">More info</a>
+                </div> -->
+            </div>
+        </div>
+        <?php endif; ?>
     </body>
 </html>
