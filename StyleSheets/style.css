@@ -298,3 +298,34 @@ form {
 .modalClose:hover {
     color: #D57F2F;
 }
+
+.homeMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+    width: 80vw;
+}
+.homeMain h1 {
+    color: blue;
+}
+.homeSection {
+    color: blue;
+    border: #3c00ff solid 4px;
+    padding-left: 10px;
+    width: 100%;
+}
+.friend {
+    margin: 5px;
+    width: fit-content;
+    text-align: center;
+}
+.friend img {
+    width: 80px;
+    border-radius: 80px;
+    border: #D57F2F solid 3px;
+}
+.friend p {
+    margin-top: 10px;
+    font-size: 18px;
+}

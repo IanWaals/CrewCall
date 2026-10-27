@@ -7,8 +7,8 @@ if(session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_N
 include_once "src/functions.php";
 include_once "src/db.php";
 
-$user = getSpecificUser();
-$userProfilePic = getProfilePicture();
+$user = getSpecificUser($_SESSION['user_id']);
+$userProfilePic = getProfilePicture($_SESSION['user_id']);
 
 ?>
 

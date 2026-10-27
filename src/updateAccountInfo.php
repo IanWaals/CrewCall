@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 include_once "db.php";
 $conn = dbConnect();
-$user = getSpecificUser();
+$user = getSpecificUser($_SESSION['user_id']);
 
 if ($_GET['option'] == "pfp") {
     if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['pfp'])) {

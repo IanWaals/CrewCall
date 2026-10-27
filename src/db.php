@@ -22,11 +22,11 @@ function getUsers() {
     $users = $resource->fetch_all(MYSQLI_ASSOC);
     return $users;
 }
-function getSpecificUser() {
+function getSpecificUser($id) {
     $conn = dbConnect();
 
     $stmt = $conn->prepare("SELECT * from users WHERE id = ?");
-    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->bind_param("i", $id);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -35,14 +35,13 @@ function getSpecificUser() {
 
     return $user;
 }
-
-function getProfilePicture() {
+function getProfilePicture($id) {
     // Get your MySQLi database connection
     $conn = dbConnect();
     
     // Prepare the statement
     $stmt = $conn->prepare("SELECT UserProfilePic FROM users WHERE id = ?");
-    $stmt->bind_param("i", $_SESSION['user_id']); // "i" specifies the variable type is an integer
+    $stmt->bind_param("i", $id); // "i" specifies the variable type is an integer
     $stmt->execute();
     
     // Get the result set from MySQLi
@@ -55,6 +54,15 @@ function getProfilePicture() {
         $profilePic = 'default-icon.jpg';
     };
     return $profilePic;
+}
+
+function getFriendships() {
+    $conn = dbConnect();
+
+    $sql = "SELECT * from friendships";
+    $resource = $conn->query($sql) or die($conn->error);
+    $friendships = $resource->fetch_all(MYSQLI_ASSOC);
+    return $friendships;
 }
 
 ?>
