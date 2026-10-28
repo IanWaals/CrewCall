@@ -16,7 +16,9 @@ function htmlHead($pageTitle) {
 }
 
 function htmlPageHeader($pageType, $activePage = "") {
-    $profilePic = getProfilePicture($_SESSION['user_id']);
+    if (isset($_SESSION['user_id'])) {
+        $profilePic = getProfilePicture($_SESSION['user_id']);
+    }
 
     ?>
     <header class="<?php echo $pageType; ?>">

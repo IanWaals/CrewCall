@@ -315,6 +315,7 @@ form {
 .homeSection {
     color: blue;
     border: #3c00ff solid 4px;
+    border-radius: 10px;
     padding-left: 10px;
     width: 100%;
 }
