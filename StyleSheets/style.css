@@ -85,7 +85,8 @@ main.index {
 }
 main.index h1 {
     font-size: 40px;
-}main.index p {
+}
+main.index p {
     font-size: 18px;
 }
 
@@ -191,7 +192,8 @@ main.typeMain h1 {
     border-radius: 5px;
     font-size: 24px;
     padding: 5px 10px 5px 10px;
-}.accountLeftChild .uploadBtn:hover {
+}
+.accountLeftChild .uploadBtn:hover {
     cursor: pointer;
 }
 
@@ -313,7 +315,7 @@ form {
     text-decoration: none;
 }
 .homeSection {
-    color: blue;
+    color: #3c00ff;
     border: #3c00ff solid 4px;
     border-radius: 10px;
     padding-left: 10px;
@@ -382,6 +384,21 @@ form {
     font-size: 36px;
     margin: 0 0 15px;
 }
+.createEventOpen {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    background-color: #D57F2F;
+    color: white;
+    text-decoration: none;
+    font-size: large;
+
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.36);
+
+    padding: 5px;
+    border-radius: 5px;;
+}
 .eventCard {
     display: flex;
     flex-direction: column;
@@ -411,4 +428,41 @@ form {
     align-self: center;
     margin: 10px 0 0;
     font-size: 18px;
+}
+
+/* Create event form */
+.createEventForm {
+    margin-top: 10px;
+}
+.createEventForm label {
+    align-self: flex-start;
+}
+.createEventForm .inputSmall {
+    width: 100%;
+}
+.createEventForm select.inputSmall,
+.createEventForm input[type="datetime-local"].inputSmall {
+    background-color: white;
+    cursor: pointer;
+}
+.createEventForm .hidden {
+    display: none !important;
+}
+.formRow {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+.formField {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 calc(50% - 7.5px);
+}
+.createEventSubmit {
+    margin: 10px auto 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+.createEventSubmit:hover {
+    background-color: #e8923f;
 }

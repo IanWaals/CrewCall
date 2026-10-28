@@ -40,7 +40,7 @@ if (($_GET['modal'] ?? '') === 'friend' && isset($_GET['user'])) {
 
 <!DOCTYPE html>
 <html>
-    <?php htmlHead("Account"); ?>
+    <?php htmlHead("Home"); ?>
     <body>
         <?php htmlPageHeader("regular", "homepage"); ?>
         <main class="homeMain jaro">
@@ -61,7 +61,13 @@ if (($_GET['modal'] ?? '') === 'friend' && isset($_GET['user'])) {
                     <?php } ?>
                 </div>
             </section>
+            <br>
+            <section class="homeSection">
+                <h2>Trending events</h2>
+            </section>
         </main>
+
+        <?php createEventButton("homepage"); ?>
 
         <?php if ($modalUser): ?>
         <!-- Friend profile modal (opened via ?modal=friend&user=<id>, closes by linking back to homepage.php) -->
@@ -69,7 +75,7 @@ if (($_GET['modal'] ?? '') === 'friend' && isset($_GET['user'])) {
             <div class="modalBox friendModalBox jaro">
                 <a href="homepage.php" class="modalClose friendModalClose" aria-label="Close">&times;</a>
                 <div class="friendModalTop">
-                    <img src="src/images/pfps/<?php echo htmlspecialchars(getProfilePicture($modalUserId)); ?>" alt="">
+                    <img src="src/images/pfps/<?php echo getProfilePicture($modalUserId); ?>" alt="">
                     <div class="friendModalInfo">
                         <h2><?php echo $modalUser['UserName']; ?></h2>
                         <p class="friendStatus">Your friend</p>

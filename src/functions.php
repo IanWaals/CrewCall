@@ -115,3 +115,66 @@ function registerForm() {
     </script>
     <?php
 }
+
+function createEventButton($header) {
+    ?>
+    <a href="<?php echo $header; ?>.php?option=createEvent" class="createEventOpen jaro">+ create event</a>
+    <?php
+
+    if (isset($_GET['option']) && $_GET['option'] == "createEvent") {
+        ?>
+        <div class="modalOverlay open">
+            <div class="modalBox friendModalBox jaro">
+                <a href="homepage.php" class="modalClose friendModalClose" aria-label="Close">&times;</a>
+                <h1>Create event</h1>
+                <form action="handleCreateEvent.php" method="post" class="createEventForm">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" class="inputSmall" required>
+
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" class="inputSmall" required>
+
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description" class="inputSmall">
+
+                    <div class="formRow">
+                        <div class="formField">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" class="inputSmall" required>
+                                <option value="anyone">Anyone can join</option>
+                                <option value="limited">Limited spaces</option>
+                                <option value="spectator">Spectator only</option>
+                            </select>
+                        </div>
+
+                        <div id="maxAttendeesGroup" class="formField hidden">
+                            <label for="max_attendees">Max attendees</label>
+                            <input type="number" id="max_attendees" name="max_attendees" class="inputSmall" min="1" step="1">
+                        </div>
+                    </div>
+
+                    <label for="event_datetime">Date and time</label>
+                    <input type="datetime-local" id="event_datetime" name="event_datetime" class="inputSmall" required>
+
+                    <button type="submit" class="orangeButton createEventSubmit jaro">Create event</button>
+                </form>
+
+                <script>
+                    const category = document.getElementById('category');
+                    const group = document.getElementById('maxAttendeesGroup');
+                    const maxInput = document.getElementById('max_attendees');
+
+                    function toggleMax() {
+                        const limited = category.value === 'limited';
+                        group.classList.toggle('hidden', !limited);
+                        maxInput.required = limited;
+                        if (!limited) maxInput.value = '';
+                    }
+                    category.addEventListener('change', toggleMax);
+                    toggleMax();
+                </script>
+            </div>
+        </div>
+        <?php
+    }
+}
