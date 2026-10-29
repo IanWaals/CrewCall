@@ -65,4 +65,22 @@ function getFriendships() {
     return $friendships;
 }
 
+function getEvents() {
+    $conn = dbConnect();
+
+    $sql = "SELECT * from events";
+    $resource = $conn->query($sql) or die($conn->error);
+    $events = $resource->fetch_all(MYSQLI_ASSOC);
+    return $events;
+}
+
+function getAttendees() {
+    $conn = dbConnect();
+
+    $sql = "SELECT * from event_attendees";
+    $resource = $conn->query($sql) or die($conn->error);
+    $attendees = $resource->fetch_all(MYSQLI_ASSOC);
+    return $attendees;
+}
+
 ?>

@@ -22,6 +22,7 @@ function compileUserFriends(array $friendships, string $userId): array {
 }
 
 $friendships = getFriendships();
+$events = getEvents();
 $userFriendships = compileUserFriends($friendships, $_SESSION['user_id']);
 
 // Friend modal: opened with homepage.php?modal=friend&user=<id>
@@ -64,6 +65,14 @@ if (($_GET['modal'] ?? '') === 'friend' && isset($_GET['user'])) {
             <br>
             <section class="homeSection">
                 <h2>Trending events</h2>
+                <div class="eventsContainer">
+                <?php
+                $numEvents = min(12, count($events));
+                for ($i = 0; $i < $numEvents; $i++) {
+                    eventCard($i, $events);
+                }
+                ?>
+                </div>
             </section>
         </main>
 
@@ -85,20 +94,10 @@ if (($_GET['modal'] ?? '') === 'friend' && isset($_GET['user'])) {
                     <?php echo $modalUser['UserBio']; ?>
                 </p>
                 <h3>Attending events:</h3>
-                <!-- <div class="eventCard">
-                    <p class="eventTitle">Looking for 5 people for 3x3 basketall</p>
-                    <p class="eventLocation">
-                        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
-                            <path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
-                        </svg>
-                        You know where
-                    </p>
-                    <p>Sport: Basketball</p>
-                    <p>Category: Limited spaces</p>
-                    <a href="#" class="orangeButton eventMoreInfo">More info</a>
-                </div> -->
             </div>
         </div>
         <?php endif; ?>
+
+        <?php eventModal($events); ?>
     </body>
 </html>

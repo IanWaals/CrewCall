@@ -38,10 +38,6 @@ function htmlPageHeader($pageType, $activePage = "") {
     <?php
 }
 
-function sessionHandler() {
-    
-}
-
 function loginForm() {
     ?>
     <form action="loginhandler.php?option=login" method="POST">
@@ -127,7 +123,7 @@ function createEventButton($header) {
             <div class="modalBox friendModalBox jaro">
                 <a href="homepage.php" class="modalClose friendModalClose" aria-label="Close">&times;</a>
                 <h1>Create event</h1>
-                <form action="handleCreateEvent.php" method="post" class="createEventForm">
+                <form action="handleEvents.php?action=create" method="post" class="createEventForm">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" class="inputSmall" required>
 
@@ -141,9 +137,9 @@ function createEventButton($header) {
                         <div class="formField">
                             <label for="category">Category</label>
                             <select id="category" name="category" class="inputSmall" required>
-                                <option value="anyone">Anyone can join</option>
-                                <option value="limited">Limited spaces</option>
-                                <option value="spectator">Spectator only</option>
+                                <option value="anyone can join">Anyone can join</option>
+                                <option value="limited spaces">Limited spaces</option>
+                                <option value="spectator only">Spectator only</option>
                             </select>
                         </div>
 
@@ -165,7 +161,7 @@ function createEventButton($header) {
                     const maxInput = document.getElementById('max_attendees');
 
                     function toggleMax() {
-                        const limited = category.value === 'limited';
+                        const limited = category.value === 'limited spaces';
                         group.classList.toggle('hidden', !limited);
                         maxInput.required = limited;
                         if (!limited) maxInput.value = '';
@@ -178,3 +174,88 @@ function createEventButton($header) {
         <?php
     }
 }
+
+function eventCard($i, $events) {
+    // Keep the current page and any other existing GET params, add/replace "event"
+    $params = $_GET;
+    $params['event'] = $events[$i]['id'];
+    $moreInfoUrl = '?' . http_build_query($params);
+?>
+<div class="eventCard">
+    <p class="eventTitle"><?php echo htmlspecialchars($events[$i]['EventTitle']); ?></p>
+    <p class="eventLocation">
+        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+            <path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+        </svg>
+        <?php echo htmlspecialchars($events[$i]['EventLocation']); ?>
+    </p>
+    <p>Category: <?php echo htmlspecialchars($events[$i]['EventCategory']); ?></p>
+    <a href="<?php echo htmlspecialchars($moreInfoUrl); ?>" class="orangeButton eventMoreInfo">More info</a>
+</div>
+<?php
+}
+
+function eventModal($events) {
+    if (!isset($_GET['event'])) {
+        return;
+    }
+
+    $event = null;
+    foreach ($events as $e) {
+        if ((string)$e['id'] === (string)$_GET['event']) {
+            $event = $e;
+            break;
+        }
+    }
+    if ($event === null) {
+        return;
+    }
+
+    $params = $_GET;
+    unset($params['event']);
+    $closeUrl = '?' . http_build_query($params);
+    if ($closeUrl === '?') {
+        $closeUrl = strtok($_SERVER['REQUEST_URI'], '?');
+    }
+
+    $categoryString = ($event['EventCategory'] == "limited spaces")
+    ? ". Spaces left: " . $event['EventMaxAttendees']
+    : ".";
+    ?>
+    <div class="modalOverlay open">
+        <div class="modalBox eventModalBox jaro">
+            <h2><?php echo $event['EventTitle']; ?></h2>
+                <p class="eventLocation">
+                <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+                    <path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+                </svg>
+                At <?php echo htmlspecialchars($event['EventLocation']); ?>
+            </p>
+            <p>Description: <?php echo $event['EventDescription']; ?></p>
+            <p>Category: <?php echo $event['EventCategory'] . $categoryString; ?></p>
+            <p>Date and time: <?php echo $event['EventDateTime']; ?></p><br>
+            
+            <?php
+            if (isAlreadyAttending()) {
+                ?> <p style="color: red;">You are already attending this event</p> <?php
+            }                
+            ?>
+            <a href="handleEvents.php?action=SignUp&event=<?php echo $_GET['event']; ?>" style="width: 100%" class="orangeButton">sign up</a>
+            <a href="<?php echo $closeUrl; ?>" style="width: 100%;" class="orangeButton">Close</a>
+        </div>
+    </div>
+    <?php
+}
+
+function isAlreadyAttending() {
+    $attendees = getAttendees();
+    $alreadyAttending = False;
+    foreach ($attendees as $attendee) {
+        if ($_SESSION['user_id'] == $attendee['UserId']) {
+            $alreadyAttending = True;
+        }
+    }
+
+    return $alreadyAttending;
+}
+?>

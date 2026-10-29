@@ -27,7 +27,6 @@ if ($_GET['option'] == "pfp") {
         $sql = "UPDATE users SET UserProfilePic = ? WHERE id = ?";
     
         if ($stmt = mysqli_prepare($conn, $sql)) {
-            // "s" for the filename, "i" for the user id
             mysqli_stmt_bind_param($stmt, "si", $filename, $_SESSION['user_id']);
     
             if (mysqli_stmt_execute($stmt)) {
